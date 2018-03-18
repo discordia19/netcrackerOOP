@@ -1,12 +1,17 @@
 package ru.ncedu.java.tasks;
 
 public class EmployeeImpl implements Employee {
+    private String name = "";
+    private String lastName = "";
+    private int salary = 1000;
+    private Employee manager = null;
+
     /**
      * @return Зарплата сотрудника на настоящий момент.
      */
     @java.lang.Override
     public int getSalary() {
-        return 0;
+        return this.salary;
     }
 
     /**
@@ -16,7 +21,7 @@ public class EmployeeImpl implements Employee {
      */
     @java.lang.Override
     public void increaseSalary(int value) {
-
+        this.salary += value;
     }
 
     /**
@@ -24,7 +29,7 @@ public class EmployeeImpl implements Employee {
      */
     @java.lang.Override
     public String getFirstName() {
-        return null;
+        return this.name;
     }
 
     /**
@@ -34,7 +39,7 @@ public class EmployeeImpl implements Employee {
      */
     @java.lang.Override
     public void setFirstName(String firstName) {
-
+        this.name = firstName;
     }
 
     /**
@@ -42,7 +47,7 @@ public class EmployeeImpl implements Employee {
      */
     @java.lang.Override
     public String getLastName() {
-        return null;
+        return this.lastName;
     }
 
     /**
@@ -52,7 +57,7 @@ public class EmployeeImpl implements Employee {
      */
     @java.lang.Override
     public void setLastName(String lastName) {
-
+        this.lastName = lastName;
     }
 
     /**
@@ -60,7 +65,7 @@ public class EmployeeImpl implements Employee {
      */
     @java.lang.Override
     public String getFullName() {
-        return null;
+        return this.name + " " + this.lastName;
     }
 
     /**
@@ -71,7 +76,7 @@ public class EmployeeImpl implements Employee {
      */
     @java.lang.Override
     public void setManager(Employee manager) {
-
+        this.manager = manager;
     }
 
     /**
@@ -80,7 +85,7 @@ public class EmployeeImpl implements Employee {
      */
     @java.lang.Override
     public String getManagerName() {
-        return null;
+        return (this.manager != null) ? this.manager.getFullName() : "No manager";
     }
 
     /**
@@ -95,6 +100,43 @@ public class EmployeeImpl implements Employee {
      */
     @java.lang.Override
     public Employee getTopManager() {
-        return null;
+       // Employee topManager = new EmployeeImpl();
+
+        if (this.manager == null) {
+            return this;
+        }
+
+        return this.manager.getTopManager();
+    }
+
+    public static void main(String[] args) {
+        EmployeeImpl testEmployee = new EmployeeImpl();
+        EmployeeImpl testEmployee2 = new EmployeeImpl();
+
+
+        System.out.println(testEmployee.getFirstName());
+        System.out.println(testEmployee.getLastName());
+        System.out.println(testEmployee.getFullName());
+
+        System.out.println();
+
+        testEmployee.setFirstName("Andrey");
+        testEmployee.setLastName("Shagov");
+        System.out.println(testEmployee.getFullName());
+
+        System.out.println();
+
+        testEmployee2.setFirstName("Mikhail");
+        testEmployee2.setLastName("mitrikas");
+
+        System.out.println("getManagerName(): " + testEmployee.getManagerName());
+        System.out.println("geTopManager.getfullname(): " + testEmployee.getTopManager().getFullName());
+
+        testEmployee.setManager(testEmployee2);
+        System.out.println("getManagerName(): " + testEmployee.getManagerName());
+        System.out.println("geTopManager.getfullname(): " + testEmployee.getTopManager().getFullName());
+
+        Employee emp = new EmployeeImpl();
+
     }
 }
