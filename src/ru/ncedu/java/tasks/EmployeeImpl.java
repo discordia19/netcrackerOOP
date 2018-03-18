@@ -5,6 +5,7 @@ public class EmployeeImpl implements Employee {
     private String lastName = "";
     private int salary = 1000;
     private Employee manager = null;
+    private Employee topManager = this;
 
     /**
      * @return Зарплата сотрудника на настоящий момент.
@@ -77,6 +78,7 @@ public class EmployeeImpl implements Employee {
     @java.lang.Override
     public void setManager(Employee manager) {
         this.manager = manager;
+        this.topManager = manager.getTopManager();
     }
 
     /**
@@ -100,13 +102,13 @@ public class EmployeeImpl implements Employee {
      */
     @java.lang.Override
     public Employee getTopManager() {
-       // Employee topManager = new EmployeeImpl();
+        return this.topManager;
 
-        if (this.manager == null) {
-            return this;
-        }
-
-        return this.manager.getTopManager();
+//        if (this.manager == null) {
+//            return this;
+//        }
+//
+//        return this.manager.getTopManager();
     }
 
     public static void main(String[] args) {
